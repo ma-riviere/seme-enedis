@@ -1,2 +1,4 @@
 nltk
+psycopg2
+wordcloud
 git+https://github.com/ClaudeCoulombe/FrenchLefffLemmatizer.git
