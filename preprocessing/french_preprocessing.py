@@ -4,42 +4,46 @@ Spyder Editor
 
 This is a temporary script file.
 """
-import pandas as pd
+import pickle
+
 from french_lefff_lemmatizer.french_lefff_lemmatizer import FrenchLefffLemmatizer
-from nltk import word_tokenize
 from nltk.corpus import stopwords
 
 from preprocessing.common import *
 
-
-def lemmatization(tweet):
-    """ Split and lematize tweets """
-    tokenized_tweet = pd.Series([word_tokenize(T.lower()) for T in tweet])
-
-    lemmatizer = FrenchLefffLemmatizer()
-    tokenized_tweet = tokenized_tweet.apply(lambda x:
-                                            [lemmatizer.lemmatize(i) for i in x])
-    return tokenized_tweet
+lemmatizer = FrenchLefffLemmatizer()
 
 
 def clean_tweet(tweet):
     """ Tweet cleaning """
-    """ input: Tweet Series """
 
-    tweet = tweet.apply(clean_accent)
-    tweet = tweet.apply(clean_at)
-    tweet = tweet.apply(clean_emoji)
-    tweet = tweet.apply(clean_hashtag)
-    tweet = tweet.apply(clean_url)
-    tweet = tweet.apply(clean_repeats)
+    tweet = clean_url(tweet)
+    tweet = clean_accent(tweet)
+    tweet = clean_at(tweet)
+    tweet = clean_emoji(tweet)
+    tweet = clean_hashtag(tweet)
+    tweet = clean_repeats(tweet)
+    tweet = clean_punctuation(tweet)
+    tweet = tweet.lower()
 
-    # Remove too little words (less than 3 letters)
-    tweet = tweet.apply(lambda x: ' '.join([w for w in x.split() if len(w) > 3]))
+    tokenized = tokenization(tweet)
+    lemmatized = lemmatization(tokenized, lemmatizer)
 
-    tokenized_tweet = lemmatization(tweet)
+    no_short = clean_shortwords(lemmatized)
 
-    StopWords = set(stopwords.words('french'))
-    for i in range(len(tokenized_tweet)):
-        tokenized_tweet[i] = [w for w in tokenized_tweet[i] if not w in StopWords]
+    no_stop = clean_stopwords(no_short, set(stopwords.words('french')))
 
-    return tokenized_tweet
+    return no_stop
+
+
+# Testing
+if __name__ == "__main__":
+    with open('../data/frenchtweets.pkl', 'rb') as f:
+        pickle = pickle.load(f)
+
+        pickle.index = range(23259)
+        tweets = pickle['texte_source']
+        tweet = tweets[1]
+        print("Original:" + tweet)
+
+        final = clean_tweet(tweet)

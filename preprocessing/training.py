@@ -27,10 +27,8 @@ def preprocess(input_file, output_file):
     with open(output_file, 'w', encoding='UTF-16') as csvoutfile:
         csv_writer = csv.writer(csvoutfile, delimiter=' ', lineterminator='\n')
         with open(input_file, 'r', newline='', encoding='UTF-16') as csvinfile:
-            #csv_reader = csv.reader(csvinfile, delimiter=',', quotechar='"')
             cols = ['Valence', 'Text']
             df = pd.read_csv(csvinfile, header=None, names=cols)
-            #for row in csv_reader:
             for index, row in df.iterrows():
                 count = 0
                 if not row.empty and row[0] in ['0','2','4']:
