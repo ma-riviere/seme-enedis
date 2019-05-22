@@ -1,8 +1,9 @@
 import pickle
 
 import nltk
+import pandas as pd
 
-from preprocessing.common import *
+from preprocessing.french_preprocessing import clean_tweet
 from preprocessing.translate import *
 
 nltk.download('punkt')
@@ -18,9 +19,10 @@ with open('./data/frenchtweets.pkl', 'rb') as f:
     pickle.index = range(23259)
     tweets = pickle['texte_source']
 
-    cleaned = clean_repeats(clean_url(tweets))
-    #TODO: clean html
-    #prep_trans(cleaned)
+    cleaned = clean_tweet(tweets)
+
+    df = pd.DataFrame(cleaned, columns=['Text'])
+    df.to_csv('./data/test/frenchtweets_test.csv')
 
     #cleaned = fclean.clean(pickle)
     #cleaned = eclean.clean(pickle)

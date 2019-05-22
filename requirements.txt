@@ -3,3 +3,4 @@ psycopg2-binary
 wordcloud
 git+https://github.com/ClaudeCoulombe/FrenchLefffLemmatizer.git
 python-docx
+emoji
