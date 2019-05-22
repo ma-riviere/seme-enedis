@@ -2,20 +2,29 @@ import pickle
 
 import nltk
 
-import preprocessing.french_preprocessing as fclean
-import wordclouds as cloud
+from preprocessing.common import *
+from preprocessing.translate import *
 
 nltk.download('punkt')
 nltk.download('stopwords')
+
+def prep_trans(tweet):
+    write2docx(concat(tweet))
 
 # Importation
 with open('./data/frenchtweets.pkl', 'rb') as f:
     pickle = pickle.load(f)
 
     pickle.index = range(23259)
+    tweets = pickle['texte_source']
 
-    cleaned = fclean.clean(pickle)
+    cleaned = clean_repeats(clean_url(tweets))
+    #TODO: clean html
+    prep_trans(cleaned)
+
+    #cleaned = fclean.clean(pickle)
     #cleaned = eclean.clean(pickle)
 
     # Generate Cloud
-    cloud.create(cleaned)
+    #print(cleaned)
+    #cloud.create(cleaned)

@@ -11,11 +11,20 @@ import pandas as pd
 
 
 def clean_tweet(tweet):
-    tweet = pd.Series([T.replace("é", "e") for T in tweet])
-    tweet = pd.Series([T.replace("è", "e") for T in tweet])
-    tweet = pd.Series([T.replace("ê", "e") for T in tweet])
-    #tweet = pd.Series([re.sub("@.* ", "Cunegonde", tweet) for T in tweet])
-    #tweet = pd.Series([re.sub("@.*", "Cunegonde", T) for T in tweet])
+    tweet = pd.Series([re.sub("@.[^ ]+", "Cunegonde", T) for T in tweet])
+    tweet = pd.Series([T.replace('#', '') for T in tweet])
+    tweet = pd.Series([re.sub("http.[^ ]+", "", T) for T in tweet])
+    tweet = pd.Series([T.replace("\\", "") for T in tweet])
+
+    # TODO: Avec la dataframe directement
+    # tweets['text_source'] = tweets['text_source'].str.replace(re.compile("(@[A-Za-z0-9_]+)", "Cunegonde")
+
+    return tweet
+
+
+def clean_tweet(tweet):
+    tweet = pd.Series([re.sub("(@[A-Za-z0-9_]+)", "Cunegonde", T) for T in tweet])
+
     tweet = pd.Series(tweet)
     tweet = pd.Series([T.replace('#', '') for T in tweet])
     for i in range(2):

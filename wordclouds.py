@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
 
-def create(tweet):
-    Tweet = tweet.copy()
+def create(Tweet):
+    #Tweet = tweet.copy()
     for i in range(len(Tweet)):
         Tweet[i] = ' '.join(Tweet[i])
     all_words = ' '.join([i for i in [text for text in Tweet]])
