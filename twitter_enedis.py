@@ -20,7 +20,7 @@ with open('./data/frenchtweets.pkl', 'rb') as f:
 
     cleaned = clean_repeats(clean_url(tweets))
     #TODO: clean html
-    prep_trans(cleaned)
+    #prep_trans(cleaned)
 
     #cleaned = fclean.clean(pickle)
     #cleaned = eclean.clean(pickle)

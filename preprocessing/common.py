@@ -14,6 +14,10 @@ def clean_repeats(tweet):
 def clean_url(tweet):
     return tweet.str.replace(re.compile(r"http\S+"), "")
 
+def clean_at(tweet):
+    #TODO
+    pass
+
 
 def get_time(tweet):
     return datetime.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y")

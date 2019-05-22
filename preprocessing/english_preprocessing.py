@@ -21,18 +21,6 @@ def clean_tweet(tweet):
 
     return tweet
 
-
-def clean_tweet(tweet):
-    tweet = pd.Series([re.sub("(@[A-Za-z0-9_]+)", "Cunegonde", T) for T in tweet])
-
-    tweet = pd.Series(tweet)
-    tweet = pd.Series([T.replace('#', '') for T in tweet])
-    for i in range(2):
-        tweet = pd.Series([re.sub("http.* ", "", T) for T in tweet])
-    tweet = pd.Series([re.sub("http.*", "", T) for T in tweet])
-
-    return tweet
-
 def clean(input):
     tweet = input.texte_source
     no_retweet = tweet[[i == '' for i in input.retweet_user_id]]
