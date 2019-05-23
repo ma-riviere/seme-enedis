@@ -4,3 +4,5 @@ wordcloud
 git+https://github.com/ClaudeCoulombe/FrenchLefffLemmatizer.git
 python-docx
 emoji
+git+https://github.com/facebookresearch/fastText.git
+gensim
