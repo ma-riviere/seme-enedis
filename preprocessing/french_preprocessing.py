@@ -7,7 +7,6 @@ This is a temporary script file.
 import pickle
 
 from french_lefff_lemmatizer.french_lefff_lemmatizer import FrenchLefffLemmatizer
-from nltk.corpus import stopwords
 
 from preprocessing.common import *
 
@@ -21,19 +20,20 @@ def clean_tweet(tweet):
     tweet = clean_accent(tweet)
     tweet = clean_at(tweet)
     tweet = clean_emoji(tweet)
-    tweet = clean_hashtag(tweet)
+    #tweet = clean_hashtag(tweet)
+    tweet = clean_hashtag_symbol(tweet)
     tweet = clean_repeats(tweet)
     tweet = clean_punctuation(tweet)
     tweet = tweet.lower()
 
-    tokenized = tokenization(tweet)
-    lemmatized = lemmatization(tokenized, lemmatizer)
+    #tweet = tokenization(tweet)
+    #tweet = lemmatization(tweet, lemmatizer)
 
-    no_short = clean_shortwords(lemmatized)
+    #tweet = clean_shortwords(tweet)
 
-    no_stop = clean_stopwords(no_short, set(stopwords.words('french')))
+    #tweet = clean_stopwords(tweet, set(stopwords.words('french')))
 
-    return no_stop
+    return tweet
 
 
 # Testing
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     with open('../data/frenchtweets.pkl', 'rb') as f:
         pickle = pickle.load(f)
 
-        pickle.index = range(23259)
+        #pickle.index = range(23259)
         tweets = pickle['texte_source']
         tweet = tweets[1]
         print("Original:" + tweet)

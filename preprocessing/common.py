@@ -31,6 +31,10 @@ def clean_hashtag(text):
     return re.sub("#.[^ ]+", " ", text)
 
 
+def clean_hashtag_symbol(text):
+    return re.sub(r'#([^\s]+)', r'\1', text)
+
+
 def clean_url(text):
     """ Remove https//.. in a tweet"""
     return re.sub("http.[^ ]+", " ", text)
